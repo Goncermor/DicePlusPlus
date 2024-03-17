@@ -175,7 +175,7 @@ int main()
         SetConsoleTextAttribute(console, Color_White); // Set the color to white
 
         std::wcout << std::endl << Texts[2][Lang] << Sum;
-        Sleep(5000); // Wait 5 Seconds for the user to see the value
+        Sleep(2000); // Wait 5 Seconds for the user to see the value
         Clear();
         SetConsoleTextAttribute(console, Color_Cyan);
         PrintCreator();
@@ -183,7 +183,7 @@ int main()
         Clear();
         SetConsoleTextAttribute(console, 7);
         PrintQR();
-        Sleep(5000); // Wait 5 Seconds for the user to see QrCode
+        Sleep(3000); // Wait 5 Seconds for the user to see QrCode
         Clear();
         if (Lang) Lang = 0;else Lang = 1; // Toggle the language
     }
