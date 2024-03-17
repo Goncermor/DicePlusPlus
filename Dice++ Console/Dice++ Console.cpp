@@ -51,7 +51,7 @@ const std::wstring Faces[6][3] = {
 };
 
 const std::wstring Texts[3][2] = {
-    {L"Dado++ Consola por Goncermor [DEMO] -> https://github.com/Goncermor/Dice++", L"Dice++ Console By Goncermor[DEMO]->https://github.com/Goncermor/Dice++ Console"},
+    {L"Dado++ por Goncermor [DEMO] -> https://github.com/Goncermor/Dice++", L"Dice++ By Goncermor[DEMO]->https://github.com/Goncermor/Dice++ Console"},
     {L"Digite o numero de dados: ", L"Enter number of dices: "},
     {L"Você obteve: ", L"You got: "}
 };
