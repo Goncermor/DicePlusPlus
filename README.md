@@ -1,3 +1,6 @@
+[mit-license]: https://opensource.org/license/mit
+[mit-license-shield]: https://img.shields.io/badge/License-Mit-blue.svg?style=for-the-badge
+
 ## Dice++: Dice Simulator for Mostra 2023 (School Project)
 
 This C++ program brings the excitement of rolling dice  to your console in a visually stunning way .  Users can specify the number of dice they want to roll (How many dice do you want to roll? ) and see the results displayed with colorful ASCII art (Look at those fancy dice roll! 🪄).
@@ -16,3 +19,8 @@ This C++ program brings the excitement of rolling dice  to your console in a vis
 1. The program will display a title screen (if enabled) and ask you to enter the number of dice you want to roll.
 3. The program will show the rolling animation followed by the final result with the rolled dice values and their sum.
 4. After a short pause, the program will clear the screen and repeat step 1.
+
+**⚖️ License:** [Mit Licence][mit-license].
+
+[![Mit License][mit-license-shield]][mit-license]
+
