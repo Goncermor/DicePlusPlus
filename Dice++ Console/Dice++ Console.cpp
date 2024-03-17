@@ -1,6 +1,5 @@
 ﻿#include <iostream>
 #include <locale.h>
-
 #include <wchar.h>
 #include <Windows.h>
 #include <time.h>
@@ -8,35 +7,23 @@
 #include <wchar.h>
 
 #define Title "     ____  _\n    / __ \\(_)_______    __    __\n   / / / / / ___/ _ \\__/ /___/ /_\n  / /_/ / / /__/  __/_  __/_  __/\n /_____/_/\\___/\\___/ /_/   /_/"
-
 #define CubeTop  L"┌───────┐"
 #define CubeBottom  L"└───────┘"
 #define Edge  L"│"
 #define Space "  "
+#define Color_Cyan 11
+#define Color_White 7
+#define Color_Green 10
 
 std::wstring Creator[] = {
-    L"       ~ By Goncermor ~     ",
-    L"                            ",
-    L" ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄",
-    L" █ ▄▄▄▄▄ █▀▄▄     ██ ▄▄▄▄▄ █",
-    L" █ █   █ █▄▀█▄██  ██ █   █ █",
-    L" █ █▄▄▄█ █ ▄▀▄▀█▄ ▄█ █▄▄▄█ █",
-    L" █▄▄▄▄▄▄▄█ █ █ █▄█▄█▄▄▄▄▄▄▄█",
-    L" █ ▄▀▄▀█▄▄█▀██  ▄▄▄█ ▄▄█▄▄▀█",
-    L" █ ▄▀ ▄▄▄▀ ▀▀▀█▀▄▀ █   ██▄▄█",
-    L" █▄▄▀▀▀ ▄ ▀█▄█ ▄██▄   █ ▀▄ █",
-    L" █▄▀▀██▄▄▀▄██▄ ▀ ▀ █▀▄ █▄▀▄█",
-    L" █▄▄██▄█▄▄ ▄▄ ▄▀█  ▄▄▄  ▄█▀█",
-    L" █ ▄▄▄▄▄ █▄  █▄▄▄▄ █▄█  ▀  █",
-    L" █ █   █ █▀█▄▄▀▄▄█▄▄▄   ▀███",
-    L" █ █▄▄▄█ █▀▄ ▀▀ █▀ ▀█▄▄▀▄█▄█",
-    L" █▄▄▄▄▄▄▄█▄▄▄▄▄▄█▄▄██▄███▄▄█",
-    L"http://profile.goncermor.com/"
+    L"   ______                                               ",
+    L"  / ____/___  ____  ________  _________ ___  ____  _____",
+    L" / / __/ __ \\/ __ \\/ ___/ _ \\/ ___/ __ `__ \\/ __ \\/ ___/",
+    L"/ /_/ / /_/ / / / / /__/  __/ /  / / / / / / /_/ / /",
+    L"\\____/\\____/_/ /_/\\___/\\___/_/  /_/ /_/ /_/\\____/_/"
 };
 
 std::wstring QR[] = {
-    L"       ~ By Goncermor ~      ",
-    L"                             ",
     L" ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ",
     L" █ ▄▄▄▄▄ █▀▄▄     ██ ▄▄▄▄▄ █ ",
     L" █ █   █ █▄▀█▄██  ██ █   █ █ ",
@@ -63,20 +50,19 @@ const std::wstring Faces[6][3] = {
     {L" ■ ■ ■ ", L"       ", L" ■ ■ ■ "}
 };
 
-const std::string Texts[] = {
-    "Dado++ Consola por Goncermor [DEMO] -> https://github.com/Goncermor/Dice++",
-    "Digite o numero de dados",
-    "Você obteve: ",
-
+const std::wstring Texts[3][2] = {
+    {L"Dado++ Consola por Goncermor [DEMO] -> https://github.com/Goncermor/Dice++", L"Dice++ Console By Goncermor[DEMO]->https://github.com/Goncermor/Dice++ Console"},
+    {L"Digite o numero de dados: ", L"Enter number of dices: "},
+    {L"Você obteve: ", L"You got: "}
 };
-
+int Lang = 1;
 
 HANDLE console;
 COORD topLeft = { 0, 0 };
+CONSOLE_SCREEN_BUFFER_INFO screen;
 
 void Clear() {
     // Substitute all chars in the console by " " and then go to 0,0 (A.K.A. Clear the console)
-    CONSOLE_SCREEN_BUFFER_INFO screen;
     DWORD written;
     GetConsoleScreenBufferInfo(console, &screen);
     FillConsoleOutputCharacterA(console, ' ', screen.dwSize.X * screen.dwSize.Y, topLeft, &written);
@@ -107,9 +93,8 @@ void DrawCubes(int Count, int *DiceValues) {
 }
 
 void PrintQR() {
-    CONSOLE_SCREEN_BUFFER_INFO screen;
-    GetConsoleScreenBufferInfo(console, &screen);
-
+    GetConsoleScreenBufferInfo(console, &screen); // Get Screen Buffer info
+    // Write QR Text line by line on console center
     for (int Line = 0; Line != sizeof(QR) / sizeof(QR[0]); Line++) {
         COORD CeneterScr = { (screen.srWindow.Right - screen.srWindow.Left + 1) / 2 - sizeof(QR[Line]) / 2, (screen.srWindow.Bottom - screen.srWindow.Top + 1) / 2 - sizeof(QR) / sizeof(QR[0]) / 2 + Line};
         SetConsoleCursorPosition(console, CeneterScr);
@@ -118,13 +103,12 @@ void PrintQR() {
 }
 
 void PrintCreator() {
-    CONSOLE_SCREEN_BUFFER_INFO screen;
-    GetConsoleScreenBufferInfo(console, &screen);
-
+    GetConsoleScreenBufferInfo(console, &screen); // Get Screen Buffer info
+    // Write Creator Text line by line on console center
     for (int Line = 0; Line != sizeof(Creator) / sizeof(Creator[0]); Line++) {
-        COORD CeneterScr = { (screen.srWindow.Right - screen.srWindow.Left + 1) / 2 - sizeof(Creator[Line]) / 2, (screen.srWindow.Bottom - screen.srWindow.Top + 1) / 2 - 16 / 2 + Line };
+        COORD CeneterScr = { (screen.srWindow.Right - screen.srWindow.Left + 1) / 2 - sizeof(Creator[Line]), (screen.srWindow.Bottom - screen.srWindow.Top + 1) / 2 - sizeof(Creator) / sizeof(Creator[0]) + Line };
         SetConsoleCursorPosition(console, CeneterScr);
-        std::wcout << QR[Line];
+        std::wcout << Creator[Line];
     }
 }
 
@@ -140,19 +124,23 @@ int main()
 
     srand(time(NULL)); // Initialize random seed
 
-    // Disable the Console Cursor
+    // Set Console Cursor Info
     CONSOLE_CURSOR_INFO lpCursor;
     lpCursor.bVisible = 0;
     lpCursor.dwSize = 100;
-   
+
+    // Declare Vars
+    int Count;
+    int* DiceValues;
+    int Sum = 0;
 
     while (1) {// Run indefinetrly
-        SetConsoleTitleA("Dice++ Console By Goncermor [DEMO] -> https://github.com/Goncermor/Dice++ Console"); // Set Title
-        SetConsoleTextAttribute(console,11); // Set the color to cyan
+        SetConsoleTitleW(Texts[0][Lang].c_str()); // Set Title
+        SetConsoleTextAttribute(console, Color_Cyan); // Set the color to cyan
         std::cout << Title;
-        SetConsoleTextAttribute(console, 7);
-        std::cout << std::endl << std::endl << "Enter number of dices: "; // Get dice count
-        int Count;
+        SetConsoleTextAttribute(console, Color_White);
+        std::wcout << std::endl << std::endl << Texts[1][Lang]; // Get dice count
+        
 
         //Show the cursor
         lpCursor.bVisible = 1;
@@ -164,11 +152,10 @@ int main()
         lpCursor.bVisible = 0;
         SetConsoleCursorInfo(console, &lpCursor);
 
-        // Generate random values for the dices
-        int* DiceValues = new int[Count];
+        DiceValues = new int[Count];
 
         Clear();
-        SetConsoleTextAttribute(console, 10); // Set the color to Lime Green
+        SetConsoleTextAttribute(console, Color_Green); // Set the color to Lime Green
         // Scroll Animation
         for (int Scroll = 0; Scroll < 25; Scroll++) {
            
@@ -183,17 +170,22 @@ int main()
         for (int Dados = 0; Dados != Count; Dados++) DiceValues[Dados] = rand() % 5;
         DrawCubes(Count, DiceValues); // Last draw
 
-        int Sum = 0;
         for (int Dice = 0; Dice != Count; Dice++) Sum += DiceValues[Dice] + 1; // Sum all the values
 
-        SetConsoleTextAttribute(console, 7); // Set the color to white
+        SetConsoleTextAttribute(console, Color_White); // Set the color to white
 
-        std::cout << std::endl << "You got: " << Sum;
+        std::wcout << std::endl << Texts[2][Lang] << Sum;
         Sleep(5000); // Wait 5 Seconds for the user to see the value
         Clear();
+        SetConsoleTextAttribute(console, Color_Cyan);
+        PrintCreator();
+        Sleep(2000); // Wait 5 Seconds for the user to see the value
+        Clear();
+        SetConsoleTextAttribute(console, 7);
         PrintQR();
         Sleep(5000); // Wait 5 Seconds for the user to see QrCode
         Clear();
+        if (Lang) Lang = 0;else Lang = 1; // Toggle the language
     }
 
 }
