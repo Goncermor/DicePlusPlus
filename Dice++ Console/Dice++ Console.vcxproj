@@ -24,7 +24,7 @@
     <ProjectGuid>{ddab502d-e500-44bd-ad9c-2e6fcc6199b4}</ProjectGuid>
     <RootNamespace>Dice</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Dice++ Console Console</ProjectName>
+    <ProjectName>Dice++ Console</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
