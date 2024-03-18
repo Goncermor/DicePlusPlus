@@ -16,11 +16,11 @@
 #define Color_Green 10
 
 std::wstring Creator[] = {
-    L"   ______                                               ",
-    L"  / ____/___  ____  ________  _________ ___  ____  _____",
-    L" / / __/ __ \\/ __ \\/ ___/ _ \\/ ___/ __ `__ \\/ __ \\/ ___/",
-    L"/ /_/ / /_/ / / / / /__/  __/ /  / / / / / / /_/ / /",
-    L"\\____/\\____/_/ /_/\\___/\\___/_/  /_/ /_/ /_/\\____/_/"
+    L"   ______                                                    ",
+    L"  / ____/___  ____  ________  _________ ___  ____  _____     ",
+    L" / / __/ __ \\/ __ \\/ ___/ _ \\/ ___/ __ `__ \\/ __ \\/ ___/    ",
+    L"/ /_/ / /_/ / / / / /__/  __/ /  / / / / / / /_/ / /         ",
+    L"\\____/\\____/_/ /_/\\___/\\___/_/  /_/ /_/ /_/\\____/_/          "
 };
 
 std::wstring QR[] = {
@@ -129,12 +129,13 @@ int main()
     lpCursor.bVisible = 0;
     lpCursor.dwSize = 100;
 
-    // Declare Vars
-    int Count;
-    int* DiceValues;
-    int Sum = 0;
-
     while (1) {// Run indefinetrly
+        // Declare Vars
+        int Count;
+        int* DiceValues;
+        int Sum = 0;
+
+
         SetConsoleTitleW(Texts[0][Lang].c_str()); // Set Title
         SetConsoleTextAttribute(console, Color_Cyan); // Set the color to cyan
         std::cout << Title;
