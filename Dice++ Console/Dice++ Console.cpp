@@ -79,12 +79,7 @@ void DrawCubes(int Count, int *DiceValues) {
     for (int Line = 0; Line != 3; Line++) {
 
         // Print line of face, face by face
-        for (int Face = 0; Face < Count; Face++) {
-            std::wcout << Edge;
-            std::wcout << Faces[DiceValues[Face]][Line];
-            std::wcout << Edge << Space;
-        }
-
+        for (int Face = 0; Face < Count; Face++) std::wcout << Edge << Faces[DiceValues[Face]][Line] << Edge << Space;
         std::wcout << std::endl;
     }
 
